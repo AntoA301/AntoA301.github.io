@@ -136,6 +136,34 @@
         color: #555;
       }
 
+      /* Project image (fills the same space as the grey placeholder) */
+      .card-img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        object-position: top;
+        display: block;
+        border-bottom: 1px solid #eee;
+      }
+
+      .card-text .tools {
+        font-size: 12px;
+        color: #888;
+        margin-top: 8px;
+      }
+
+      .card-link {
+        display: inline-block;
+        margin-top: 8px;
+        font-size: 14px;
+        color: #2c3e50;
+        font-weight: bold;
+        text-decoration: none;
+      }
+      .card-link:hover {
+        text-decoration: underline;
+      }
+
       /* ---------- MOBILE: stack cards vertically ---------- */
       @media (max-width: 640px) {
         .cards {
@@ -184,19 +212,51 @@
         <div class="cards">
           <!-- CARD 1 -->
           <div class="card">
-            <div class="card-photo">Project Image</div>
+            <img
+              class="card-img"
+              src="images/ukraine-fatality-forecast.png"
+              alt="Chart of actual vs. forecast weekly fatalities in Kursk"
+            />
             <div class="card-text">
-              <h3>Project Title</h3>
-              <p>Short description of what you did and the tools you used.</p>
+              <h3>Forecasting Fatalities on the Russia–Ukraine Fronts</h3>
+              <p>
+                Built a Random Forest model on 169,000+ ACLED conflict events to
+                forecast next week's deaths on 11 front-line regions. It beat a
+                naive baseline by 16% but could not anticipate the sudden Kursk
+                incursion (Aug 2024).
+              </p>
+              <p class="tools">Python · scikit-learn · pandas · GeoPandas</p>
+              <a
+                class="card-link"
+                href="https://github.com/AntoA301/ukraine-fronts-forecasting/tree/main/assignment-1-fatality-forecast"
+                target="_blank"
+                >View on GitHub →</a
+              >
             </div>
           </div>
 
           <!-- CARD 2 -->
           <div class="card">
-            <div class="card-photo">Project Image</div>
+            <img
+              class="card-img"
+              src="images/ukraine-drones-vs-artillery.png"
+              alt="Map of drone vs. artillery strikes along the Russia–Ukraine front"
+            />
             <div class="card-text">
-              <h3>Project Title</h3>
-              <p>Short description of what you did and the tools you used.</p>
+              <h3>Are Drones Deadlier than Artillery?</h3>
+              <p>
+                Causal inference study of 107,869 strikes. After controlling
+                for front, month and attacking side, drone/air strikes caused
+                about 55% fewer deaths per strike than artillery, and the result
+                passed all robustness tests.
+              </p>
+              <p class="tools">Python · CausalML · DoWhy · XGBoost</p>
+              <a
+                class="card-link"
+                href="https://github.com/AntoA301/ukraine-fronts-forecasting/tree/main/assignment-2-drones-vs-artillery"
+                target="_blank"
+                >View on GitHub →</a
+              >
             </div>
           </div>
 
