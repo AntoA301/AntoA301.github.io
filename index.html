@@ -280,8 +280,78 @@
         font-size: 17px;
       }
 
-      .panel + .panel {
-        margin-top: 16px;
+      /* ---------- JOB EXPERIENCE TIMELINE ---------- */
+      .section-title {
+        font-variation-settings: "wdth" 125;
+        font-weight: 800;
+        font-size: 26px;
+        line-height: 1.1;
+        margin: 44px 0 20px;
+      }
+
+      .timeline {
+        list-style: none;
+        position: relative;
+        max-width: 68ch;
+        padding-left: 34px;
+      }
+
+      .job {
+        position: relative;
+        background: var(--panel);
+        border: 1px solid var(--ink);
+        padding: 20px 24px;
+      }
+      .job + .job {
+        margin-top: 18px;
+      }
+      /* waypoint marker for each job */
+      .job::before {
+        content: "";
+        position: absolute;
+        left: -32px;
+        top: 24px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--paper);
+        border: 2px solid var(--olive);
+      }
+
+      /* dashed route from each job's waypoint to the next one */
+      .job:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: -26px;
+        top: 38px;
+        height: calc(100% + 4px);
+        border-left: 2px dashed var(--olive);
+        opacity: 0.6;
+      }
+
+      .job-head {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 4px 16px;
+      }
+      .job h3 {
+        font-variation-settings: "wdth" 112;
+        font-weight: 700;
+        font-size: 19px;
+        line-height: 1.25;
+      }
+      .job .dates {
+        font-size: 14px;
+        color: var(--ink-soft);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .job .org {
+        font-size: 15px;
+        color: var(--ink-soft);
+        margin: 2px 0 10px;
       }
 
       /* ---------- PROJECTS ---------- */
@@ -601,21 +671,31 @@
             Defense setting.
           </p>
         </div>
-        <div class="panel">
-          <p>
-            At Butterfield Support Services in Halifax, I worked as an
-            Operations Administrator from May 2022 to April 2026. My work
-            included transaction analysis, fraud case reconciliation, payment
-            processing, dormant account monitoring and compliance reporting.
-          </p>
-        </div>
-        <div class="panel">
-          <p>
-            Before that, I was a Finance Co-op at Blue Water Group in Dartmouth
-            from August 2020 to January 2021, where I reconciled general ledger
-            accounts in SAP and supported accounts payable and receivable.
-          </p>
-        </div>
+        <h2 class="section-title">Previous job experience</h2>
+        <ol class="timeline">
+          <li class="job">
+            <div class="job-head">
+              <h3>Operations Administrator</h3>
+              <span class="dates">May 2022 – Apr 2026</span>
+            </div>
+            <p class="org">Butterfield Support Services, Halifax, NS</p>
+            <p>
+              Transaction analysis, fraud case reconciliation, payment
+              processing, dormant account monitoring and compliance reporting.
+            </p>
+          </li>
+          <li class="job">
+            <div class="job-head">
+              <h3>Finance Co-op</h3>
+              <span class="dates">Aug 2020 – Jan 2021</span>
+            </div>
+            <p class="org">Blue Water Group, Dartmouth, NS</p>
+            <p>
+              Reconciled general ledger accounts in SAP and supported accounts
+              payable and receivable.
+            </p>
+          </li>
+        </ol>
       </section>
 
       <!-- ---------- TAB 2: PROJECTS ---------- -->
