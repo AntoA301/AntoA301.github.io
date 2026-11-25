@@ -18,6 +18,8 @@ Plain HTML, CSS and JavaScript modules, served by GitHub Pages from `main`. No b
 
 ## Editing
 
+- **After any change:** bump the `?v=` version on the stylesheet and script links in `index.html` and on the imports in `js/*.js` (search and replace the old version). This makes browsers load the new files instead of a saved copy.
+
 - **Add a job or activity:** copy an `<article class="xp">` block in `index.html`. Its `data-lane`, `data-start` and `data-end` place it on the timeline.
 - **Add a report:** add a function in `js/reports.js` like `forecastReport`, put its numbers in `data/projects.json`, and list it in `initReports`.
 

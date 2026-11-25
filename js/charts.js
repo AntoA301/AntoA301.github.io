@@ -1,6 +1,6 @@
 // Small SVG chart builders used by the reports. Every mark gets a keyboard-
 // focusable hit area with a tooltip, so values are readable without a mouse.
-import { s, h, scale, withTip } from "./util.js";
+import { s, h, scale, withTip } from "./util.js?v=20261125-2";
 
 // Charts are drawn once per open, at a width that suits the screen.
 const narrow = () => window.innerWidth < 600;

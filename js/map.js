@@ -1,6 +1,6 @@
 // Research map: the 11 study regions coloured by a chosen layer, with a
 // sortable region list and a detail card that joins both reports' results.
-import { s, h, fmt, withTip, hideTip } from "./util.js";
+import { s, h, fmt, withTip, hideTip } from "./util.js?v=20261125-2";
 
 const LAYERS = {
   error: {

@@ -1,6 +1,6 @@
 // Experience timeline, built from the <article class="xp"> entries in index.html.
 // Selecting a bar shows that entry's details below the timeline.
-import { s, h } from "./util.js";
+import { s, h } from "./util.js?v=20261125-2";
 
 const START = 2017;
 const END = 2028;
