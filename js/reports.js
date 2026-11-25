@@ -1,7 +1,7 @@
 // The two research reports, each with tabbed sections and interactive charts.
 // Every number comes from data/projects.json, which copies the notebook outputs.
-import { h, s, fmt } from "./util.js?v=20261125-3";
-import { figure, toggle, hbars, lineCompare, vbars } from "./charts.js?v=20261125-3";
+import { h, s, fmt } from "./util.js?v=20261125-4";
+import { figure, toggle, hbars, lineCompare, vbars } from "./charts.js?v=20261125-4";
 
 const REPO = "https://github.com/AntoA301/ukraine-fronts-forecasting/tree/main";
 const SRC = "Source: my notebook outputs on ACLED data, Aug 2023 – Sep 2025 (historical).";
@@ -596,7 +596,7 @@ function kudosReport(data) {
   return frame({
     id: "kudos",
     title: "How to KudosMaxx: what drives engagement on Strava?",
-    method: "OLS, Poisson and logistic regression",
+    method: "OLS, Poisson and logistic regression, plus a dashboard",
     course: "MGSC 661, McGill MMA, 2026",
     repoUrl: KUDOS_REPO,
     question: "What drives the number of kudos a run gets on Strava: effort (distance, pace, personal records), presentation (photos, captions) or timing (weekends)?",
@@ -626,8 +626,12 @@ function kudosReport(data) {
               h("li", { text: "The audience matters most. Growing the follower base probably matters more than any single post, though follower counts were not available to test it." }),
             ]),
           ]),
+          h("div", { class: "prose" }, [
+            h("h4", { text: "Dashboard" }),
+            p("We also built My Strava, an interactive running dashboard that presents these results, shown in our final presentation."),
+          ]),
           h("p", { class: "chart-source" }, [
-            "The final presentation is in the ",
+            "The notebook and final presentation are in the ",
             h("a", { class: "textlink", href: KUDOS_REPO, target: "_blank", rel: "noopener", text: "GitHub repository" }),
             ".",
           ]),
