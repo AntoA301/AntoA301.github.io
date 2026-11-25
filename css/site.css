@@ -1415,13 +1415,31 @@ details.explain > div p + p {
   opacity: 0.25;
 }
 
-.js .entries .xp:not(.active) {
+/* all cards visible, grouped by lane; the selected one is outlined in amber */
+.xp-group + .xp-group {
+  margin-top: 36px;
+}
+.xp-group[hidden] {
   display: none;
 }
-.entries .xp {
-  max-width: 80ch;
+.xp-group-title {
+  font-variation-settings: var(--wide);
+  font-weight: 800;
+  font-size: var(--step-2);
+  margin-bottom: 14px;
 }
-.no-js-gap .xp + .xp,
+.xp-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr));
+  gap: var(--gap);
+  align-items: start;
+}
+.entries .xp {
+  transition: border-color 0.2s;
+}
+.entries .xp.active {
+  border-color: var(--amber);
+}
 html:not(.js) .xp + .xp {
   margin-top: 16px;
 }

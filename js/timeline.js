@@ -92,12 +92,31 @@ export function initTimeline(host, entriesHost) {
   const setFilter = (lane) => {
     filters.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lane === lane)));
     for (const e of entries) bars[e.id].classList.toggle("muted", lane !== "All" && e.lane !== lane);
-    const first = entries.filter((e) => lane === "All" || e.lane === lane).sort((a, b) => b.start - a.start)[0];
-    if (first) select(first.id);
+    for (const [key, g] of Object.entries(groups)) g.hidden = lane !== "All" && key !== lane;
   };
   for (const lane of ["All", ...LANES]) {
     filters.append(h("button", { type: "button", "data-lane": lane, "aria-pressed": String(lane === "All"), onclick: () => setFilter(lane) }, lane));
   }
+
+  // show every card at once, grouped by lane (work first)
+  const GROUP_ORDER = [
+    ["Work", "Work experience"],
+    ["Extracurricular", "Extracurriculars"],
+    ["Education", "Education"],
+  ];
+  const groups = {};
+  for (const [lane, title] of GROUP_ORDER) {
+    const list = h("div", { class: "xp-list" });
+    entries
+      .filter((e) => e.lane === lane)
+      .sort((a, b) => b.start - a.start)
+      .forEach((e) => {
+        e.el.classList.add("panel");
+        list.append(e.el);
+      });
+    groups[lane] = h("section", { class: "xp-group", "aria-label": title }, [h("h3", { class: "xp-group-title", text: title }), list]);
+  }
+  entriesHost.replaceChildren(...GROUP_ORDER.map(([lane]) => groups[lane]));
 
   host.replaceChildren(
     h("div", { class: "panel timeline" }, [
@@ -106,7 +125,7 @@ export function initTimeline(host, entriesHost) {
     ]),
   );
 
-  function select(id) {
+  function select(id, scrollPage = true) {
     // on narrow screens the timeline scrolls sideways: bring the selected bar into view
     const scroller = host.querySelector(".timeline-scroll");
     if (scroller && scroller.scrollWidth > scroller.clientWidth) {
@@ -117,10 +136,14 @@ export function initTimeline(host, entriesHost) {
     for (const e of entries) {
       const on = e.id === id;
       e.el.classList.toggle("active", on);
-      e.el.classList.toggle("panel", true);
       bars[e.id].classList.toggle("selected", on);
       bars[e.id].setAttribute("aria-pressed", String(on));
     }
+    const card = entries.find((e) => e.id === id)?.el;
+    if (card && scrollPage) {
+      const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      card.scrollIntoView({ block: "center", behavior: smooth ? "smooth" : "auto" });
+    }
   }
-  select("xp-butterfield");
+  select("xp-butterfield", false);
 }
