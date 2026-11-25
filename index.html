@@ -348,6 +348,28 @@
         font-variant-numeric: tabular-nums;
         white-space: nowrap;
       }
+      .duties {
+        list-style: none;
+        font-size: 15px;
+      }
+      .duties li {
+        position: relative;
+        padding-left: 18px;
+      }
+      .duties li + li {
+        margin-top: 6px;
+      }
+      /* small olive square as the bullet */
+      .duties li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.6em;
+        width: 6px;
+        height: 6px;
+        background: var(--olive);
+      }
+
       .job .org {
         font-size: 15px;
         color: var(--ink-soft);
@@ -679,10 +701,20 @@
               <span class="dates">May 2022 – Apr 2026</span>
             </div>
             <p class="org">Butterfield Support Services, Halifax, NS</p>
-            <p>
-              Transaction analysis, fraud case reconciliation, payment
-              processing, dormant account monitoring and compliance reporting.
-            </p>
+            <ul class="duties">
+              <li>
+                Investigated 50–60 fraud cases a month (2,400+ in total),
+                covering an estimated $500K+ in disputed transactions
+              </li>
+              <li>
+                Processed 50+ domestic and international payments daily at 99%
+                SLA compliance, saving an estimated $50K+ in wire-redo fees
+              </li>
+              <li>
+                Reviewed ~15 dormant accounts and completed ~20 KYC checks
+                weekly, keeping records audit-ready for AML requirements
+              </li>
+            </ul>
           </li>
           <li class="job">
             <div class="job-head">
@@ -690,10 +722,20 @@
               <span class="dates">Aug 2020 – Jan 2021</span>
             </div>
             <p class="org">Blue Water Group, Dartmouth, NS</p>
-            <p>
-              Reconciled general ledger accounts in SAP and supported accounts
-              payable and receivable.
-            </p>
+            <ul class="duties">
+              <li>
+                Reconciled 75 general ledger accounts monthly in SAP before
+                month-end close
+              </li>
+              <li>
+                Processed 100+ payable and receivable invoices weekly, capturing
+                an estimated $5K+ in early-payment discounts
+              </li>
+              <li>
+                Moved 75 vendors from cheques to EFT, cutting payment processing
+                time by 35%
+              </li>
+            </ul>
           </li>
         </ol>
       </section>
