@@ -960,6 +960,9 @@ main {
 .prose {
   max-width: 70ch;
 }
+.prose + .prose {
+  margin-top: 26px;
+}
 .prose p + p,
 .prose p + ul,
 .prose ul + p {
