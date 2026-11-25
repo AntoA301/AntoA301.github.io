@@ -1,0 +1,117 @@
+{
+  "_source": "All figures copied from the saved outputs of Assignment_1.ipynb and Assignment_2.ipynb in github.com/AntoA301/ukraine-fronts-forecasting. Historical ACLED data, 1 Aug 2023 to 19 Sep 2025. Not live data.",
+  "dataset": {
+    "events": 169578,
+    "columns": 31,
+    "period": "1 Aug 2023 – 19 Sep 2025",
+    "zeroFatalityShare": 0.833,
+    "frontlineEventsKept": 158738,
+    "fatalitiesKeptShare": 0.989
+  },
+  "forecast": {
+    "modellingRows": 1155,
+    "train": { "rows": 924, "from": "2023-09-04", "to": "2025-04-07" },
+    "test": { "rows": 231, "from": "2025-04-14", "to": "2025-09-01" },
+    "results": [
+      { "label": "Random Forest, train", "rmse": 52.0, "mae": 16.4 },
+      { "label": "Random Forest, cross-validation (mean)", "rmse": 126.6, "mae": null },
+      { "label": "Random Forest, test", "rmse": 72.1, "mae": 30.3 },
+      { "label": "Naive baseline, test", "rmse": 85.5, "mae": 32.3 }
+    ],
+    "cvFolds": [
+      { "weeks": "Dec 2023 – Mar 2024", "rmse": 108.9 },
+      { "weeks": "Mar – Jun 2024", "rmse": 210.5 },
+      { "weeks": "Jun – Sep 2024", "rmse": 110.0 },
+      { "weeks": "Sep – Dec 2024", "rmse": 120.9 },
+      { "weeks": "Jan – Apr 2025", "rmse": 82.8 }
+    ],
+    "correlations": [
+      { "feature": "4-week rolling fatalities", "r": 0.91 },
+      { "feature": "This week's fatalities", "r": 0.90 },
+      { "feature": "Fatalities, 1-week lag", "r": 0.88 },
+      { "feature": "Fatalities, 2-week lag", "r": 0.86 },
+      { "feature": "Fatalities, 4-week lag", "r": 0.82 },
+      { "feature": "Battles", "r": 0.73 },
+      { "feature": "Civilian-targeting events", "r": 0.66 },
+      { "feature": "4-week rolling events", "r": 0.61 },
+      { "feature": "All events", "r": 0.61 },
+      { "feature": "Explosions", "r": 0.28 },
+      { "feature": "Violence against civilians", "r": 0.21 },
+      { "feature": "Strategic developments", "r": -0.07 }
+    ],
+    "regionErrors": {
+      "Donetsk":        { "meanActual": 690.2, "mae": 211.9, "rmse": 310.4, "maePct": 30.7 },
+      "Kherson":        { "meanActual": 488.7, "mae": 148.2, "rmse": 209.7, "maePct": 30.3 },
+      "Kharkiv":        { "meanActual": 139.0, "mae": 70.2,  "rmse": 133.4, "maePct": 50.5 },
+      "Kursk":          { "meanActual": 55.0,  "mae": 27.7,  "rmse": 51.1,  "maePct": 50.4 },
+      "Zaporizhia":     { "meanActual": 48.6,  "mae": 11.1,  "rmse": 14.4,  "maePct": 22.8 },
+      "Sumy":           { "meanActual": 23.3,  "mae": 11.7,  "rmse": 17.0,  "maePct": 50.2 },
+      "Luhansk":        { "meanActual": 17.3,  "mae": 13.2,  "rmse": 25.2,  "maePct": 76.4 },
+      "Dnipropetrovsk": { "meanActual": 12.8,  "mae": 8.0,   "rmse": 14.7,  "maePct": 62.2 },
+      "Belgorod":       { "meanActual": 11.3,  "mae": 13.7,  "rmse": 54.6,  "maePct": 121.3 },
+      "Chernihiv":      { "meanActual": 0.7,   "mae": 1.1,   "rmse": 2.4,   "maePct": 153.0 },
+      "Bryansk":        { "meanActual": 0.6,   "mae": 0.8,   "rmse": 1.5,   "maePct": 129.7 }
+    },
+    "regionErrorsNote": "Out-of-sample forecasts, 1,001 region-weeks, 18 Dec 2023 – 8 Sep 2025.",
+    "kurskOnset": [
+      { "week": "2024-08-05", "actual": 136, "forecast": 3 },
+      { "week": "2024-08-12", "actual": 147, "forecast": 233 },
+      { "week": "2024-08-19", "actual": 208, "forecast": 230 },
+      { "week": "2024-08-26", "actual": 160, "forecast": 233 },
+      { "week": "2024-09-02", "actual": 100, "forecast": 217 },
+      { "week": "2024-09-09", "actual": 258, "forecast": 118 },
+      { "week": "2024-09-16", "actual": 182, "forecast": 232 },
+      { "week": "2024-09-23", "actual": 222, "forecast": 235 },
+      { "week": "2024-09-30", "actual": 267, "forecast": 244 }
+    ],
+    "kurskMonthly": [
+      ["2023-08",21,1],["2023-09",47,3],["2023-10",36,0],["2023-11",16,0],["2023-12",21,1],
+      ["2024-01",18,1],["2024-02",35,0],["2024-03",50,75],["2024-04",57,6],["2024-05",255,4],
+      ["2024-06",350,6],["2024-07",464,1],["2024-08",606,631],["2024-09",555,828],["2024-10",775,903],
+      ["2024-11",726,784],["2024-12",648,340],["2025-01",808,336],["2025-02",723,318],["2025-03",458,370],
+      ["2025-04",135,283],["2025-05",117,58],["2025-06",156,19],["2025-07",125,32],["2025-08",107,4],["2025-09",55,4]
+    ]
+  },
+  "causal": {
+    "strikes": 107869,
+    "drone": { "events": 57777, "meanDeaths": 0.167, "shareZero": 0.917, "max": 100 },
+    "artillery": { "events": 50124, "meanDeaths": 0.324, "shareZero": 0.857, "max": 210 },
+    "estimates": [
+      { "method": "Naive difference in means", "family": "Baseline", "ate": -0.157, "lo": null, "hi": null },
+      { "method": "S-learner (LRSRegressor)", "family": "CausalML", "ate": -0.174, "lo": -0.191, "hi": -0.156 },
+      { "method": "T-learner (XGBTRegressor)", "family": "CausalML", "ate": -0.187, "lo": -0.204, "hi": -0.171 },
+      { "method": "Linear regression", "family": "DoWhy", "ate": -0.174, "lo": -0.192, "hi": -0.155 },
+      { "method": "Propensity score weighting", "family": "DoWhy", "ate": -0.193, "lo": null, "hi": null },
+      { "method": "Propensity score matching", "family": "DoWhy", "ate": -0.286, "lo": null, "hi": null }
+    ],
+    "refutations": [
+      { "test": "Add a random common cause", "original": -0.1736, "refuted": -0.1736, "p": 0.44, "expect": "Effect should not move" },
+      { "test": "Placebo treatment", "original": -0.1736, "refuted": 0.0010, "p": 0.45, "expect": "Effect should drop to about zero" },
+      { "test": "Random data subset", "original": -0.1736, "refuted": -0.1739, "p": 0.48, "expect": "Effect should not move" }
+    ],
+    "byOblast": {
+      "Dnipropetrovsk": { "strikes": 3358,  "droneShare": 0.678, "avgEffect": -0.618, "medianEffect": -0.327, "artilleryAvg": 0.431, "naiveGap": -0.331 },
+      "Kharkiv":        { "strikes": 7820,  "droneShare": 0.472, "avgEffect": -0.607, "medianEffect": -0.518, "artilleryAvg": 0.706, "naiveGap": -0.369 },
+      "Kursk":          { "strikes": 3967,  "droneShare": 0.802, "avgEffect": -0.430, "medianEffect": 0.005,  "artilleryAvg": 0.464, "naiveGap": -0.070 },
+      "Zaporizhia":     { "strikes": 9821,  "droneShare": 0.549, "avgEffect": -0.417, "medianEffect": -0.362, "artilleryAvg": 0.385, "naiveGap": -0.108 },
+      "Donetsk":        { "strikes": 19051, "droneShare": 0.353, "avgEffect": -0.151, "medianEffect": -0.048, "artilleryAvg": 0.497, "naiveGap": -0.019 },
+      "Luhansk":        { "strikes": 1120,  "droneShare": 0.473, "avgEffect": -0.146, "medianEffect": 0.022,  "artilleryAvg": 0.632, "naiveGap": -0.232 },
+      "Kherson":        { "strikes": 16757, "droneShare": 0.358, "avgEffect": -0.116, "medianEffect": -0.091, "artilleryAvg": 0.284, "naiveGap": -0.146 },
+      "Sumy":           { "strikes": 20442, "droneShare": 0.540, "avgEffect": -0.074, "medianEffect": -0.038, "artilleryAvg": 0.099, "naiveGap": -0.015 },
+      "Belgorod":       { "strikes": 19102, "droneShare": 0.810, "avgEffect": -0.056, "medianEffect": -0.043, "artilleryAvg": 0.058, "naiveGap": -0.046 },
+      "Chernihiv":      { "strikes": 6128,  "droneShare": 0.531, "avgEffect": -0.001, "medianEffect": -0.001, "artilleryAvg": 0.014, "naiveGap": -0.005 },
+      "Bryansk":        { "strikes": 303,   "droneShare": 0.700, "avgEffect": 0.017,  "medianEffect": 0.057,  "artilleryAvg": 0.121, "naiveGap": -0.022 }
+    },
+    "byOblastNote": "Per-strike effects (CATE) from the T-learner, averaged by oblast. Negative = drone/air strikes kill fewer people per strike than artillery.",
+    "kursk": {
+      "otherFronts": { "strikes": 103902, "meanDeaths": 0.233, "shareZero": 0.894 },
+      "kursk": { "strikes": 3967, "meanDeaths": 0.408, "shareZero": 0.758 },
+      "effects": [
+        { "label": "Full period, linear regression", "est": 0.249, "lo": 0.205, "hi": 0.294 },
+        { "label": "After 6 Aug 2024, all strikes", "est": 0.383, "lo": 0.339, "hi": 0.427 },
+        { "label": "After 6 Aug 2024, Russian strikes", "est": 0.301, "lo": 0.259, "hi": 0.343 },
+        { "label": "After 6 Aug 2024, Ukrainian strikes", "est": 0.726, "lo": 0.597, "hi": 0.855 }
+      ]
+    }
+  }
+}
