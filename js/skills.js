@@ -1,6 +1,6 @@
 // Skills map: each skill is linked only to the places I actually used it.
 // There are no proficiency scores, on purpose.
-import { h } from "./util.js?v=20261125-5";
+import { h } from "./util.js?v=20261125-6";
 
 const CONTEXTS = [
   { id: "butterfield", label: "Butterfield", href: "#experience" },

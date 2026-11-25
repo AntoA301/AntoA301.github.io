@@ -1,7 +1,7 @@
 // The two research reports, each with tabbed sections and interactive charts.
 // Every number comes from data/projects.json, which copies the notebook outputs.
-import { h, s, fmt } from "./util.js?v=20261125-5";
-import { figure, toggle, hbars, lineCompare, vbars } from "./charts.js?v=20261125-5";
+import { h, s, fmt } from "./util.js?v=20261125-6";
+import { figure, toggle, hbars, lineCompare, vbars } from "./charts.js?v=20261125-6";
 
 const REPO = "https://github.com/AntoA301/ukraine-fronts-forecasting/tree/main";
 const SRC = "Source: my notebook outputs on ACLED data, Aug 2023 – Sep 2025 (historical).";
@@ -628,7 +628,10 @@ function kudosReport(data) {
           ]),
           h("div", { class: "prose" }, [
             h("h4", { text: "Dashboard" }),
-            p("We also built My Strava, an interactive running dashboard that presents these results, shown in our final presentation."),
+            p("We also built My Strava, an interactive running dashboard that presents these results."),
+          ]),
+          h("div", { class: "actions", style: "margin-top:14px" }, [
+            h("a", { class: "btn btn-primary", href: "https://strava-dashboard-lovat-one.vercel.app/kudos", target: "_blank", rel: "noopener", text: "Open the My Strava dashboard" }),
           ]),
           h("p", { class: "chart-source" }, [
             "The notebook and final presentation are in the ",

@@ -1,11 +1,11 @@
 // Entry point: hash routing between views, the sliding nav indicator,
 // the local clock and the quick-jump command bar.
-import { load, h, hideTip } from "./util.js?v=20261125-5";
-import { initRadar } from "./radar.js?v=20261125-5";
-import { initMap, selectRegion } from "./map.js?v=20261125-5";
-import { initReports, openReport } from "./reports.js?v=20261125-5";
-import { initSkills } from "./skills.js?v=20261125-5";
-import { initTimeline } from "./timeline.js?v=20261125-5";
+import { load, h, hideTip } from "./util.js?v=20261125-6";
+import { initRadar } from "./radar.js?v=20261125-6";
+import { initMap, selectRegion } from "./map.js?v=20261125-6";
+import { initReports, openReport } from "./reports.js?v=20261125-6";
+import { initSkills } from "./skills.js?v=20261125-6";
+import { initTimeline } from "./timeline.js?v=20261125-6";
 
 const VIEWS = ["overview", "map", "reports", "profile", "experience"];
 const started = new Set();
@@ -95,6 +95,7 @@ async function initCommand() {
     { label: "Robustness tests", hint: "Report section", href: "#reports/drones/robustness" },
     { label: "How to KudosMaxx: what drives engagement on Strava?", hint: "Report", href: "#reports/kudos" },
     ...geo.regions.map((r) => ({ label: r.id, hint: `Region, ${r.country}`, href: `#map/${r.id}` })),
+    { label: "My Strava dashboard", hint: "Link", href: "https://strava-dashboard-lovat-one.vercel.app/kudos" },
     { label: "Code on GitHub", hint: "Link", href: "https://github.com/AntoA301/ukraine-fronts-forecasting" },
   ];
   let shown = items;

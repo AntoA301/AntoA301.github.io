@@ -1,7 +1,7 @@
 // Overview radar. The blips are the 11 study regions at their real bearing and
 // distance from a centre point (49.5° N, 35.5° E). Each blip pings as the sweep
 // passes it. Blip size = average weekly deaths in the forecast's test window.
-import { s, fmt, withTip } from "./util.js?v=20261125-5";
+import { s, fmt, withTip } from "./util.js?v=20261125-6";
 
 const CENTER = { lat: 49.5, lon: 35.5 };
 const KM_PER_DEG = 111.2;
