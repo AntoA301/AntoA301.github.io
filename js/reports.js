@@ -1,7 +1,7 @@
 // The two research reports, each with tabbed sections and interactive charts.
 // Every number comes from data/projects.json, which copies the notebook outputs.
-import { h, s, fmt } from "./util.js?v=20261125-2";
-import { figure, toggle, hbars, lineCompare, vbars } from "./charts.js?v=20261125-2";
+import { h, s, fmt } from "./util.js?v=20261125-3";
+import { figure, toggle, hbars, lineCompare, vbars } from "./charts.js?v=20261125-3";
 
 const REPO = "https://github.com/AntoA301/ukraine-fronts-forecasting/tree/main";
 const SRC = "Source: my notebook outputs on ACLED data, Aug 2023 – Sep 2025 (historical).";
@@ -10,7 +10,7 @@ const C = { sage: "#8fa67a", sageDim: "#5d6f50", amber: "#d69e3a", text: "#d9ded
 let built = null;
 
 export function initReports(host, data) {
-  const reports = [forecastReport(data), dronesReport(data)];
+  const reports = [forecastReport(data), dronesReport(data), kudosReport(data)];
   const index = h("ul", { class: "report-index", "aria-label": "Reports" });
   const stage = h("div");
 
@@ -24,7 +24,6 @@ export function initReports(host, data) {
       ]),
     );
   }
-  index.append(h("li", { class: "pending", text: "Next report in preparation: Strava kudos analysis (MGSC 661)." }));
   host.replaceChildren(index, stage);
   built = { reports, index, stage, open: null };
 }
@@ -43,7 +42,7 @@ export function openReport(id, tab) {
 /* ------------------------------------------------------------------
    Shared report frame with tabs
    ------------------------------------------------------------------ */
-function frame({ id, title, method, question, tools, repoPath, sections }) {
+function frame({ id, title, method, question, tools, repoPath, repoUrl, course = "INSY 674, McGill MMA, 2026", credit, sections }) {
   const tabs = Object.keys(sections);
   const tablist = h("div", { class: "tabs", role: "tablist", "aria-label": `${title} sections` });
   const panels = {};
@@ -96,12 +95,13 @@ function frame({ id, title, method, question, tools, repoPath, sections }) {
   api.el = h("article", { class: "panel report", "aria-labelledby": `title-${id}` }, [
     h("header", { class: "report-head" }, [
       h("div", { class: "report-meta" }, [
-        h("span", { text: "INSY 674, McGill MMA, 2026" }),
+        h("span", { text: course }),
         h("span", { text: method }),
-        h("a", { class: "textlink", href: `${REPO}/${repoPath}`, target: "_blank", rel: "noopener", text: "Notebook and code on GitHub" }),
+        h("a", { class: "textlink", href: repoUrl || `${REPO}/${repoPath}`, target: "_blank", rel: "noopener", text: "Notebook and code on GitHub" }),
       ]),
       h("h3", { id: `title-${id}`, text: title }),
       h("p", { class: "report-question", text: question }),
+      credit ? h("p", { class: "report-credit", text: credit }) : null,
       h("ul", { class: "tools", "aria-label": "Tools" }, tools.map((t) => h("li", { text: t }))),
     ]),
     tablist,
@@ -575,6 +575,264 @@ function dronesReport(data) {
               h("li", { text: "Most strikes kill no one, so a few mass-casualty events drive the averages." }),
               h("li", { text: "Location cannot be assigned like a weapon, so the Kursk result describes how deadly conditions were there, not the effect of an intervention." }),
               h("li", { text: "Per-oblast averages come from a model of individual strikes. Where few strikes were recorded, as in Bryansk, they are less reliable." }),
+            ]),
+          ]),
+      },
+    },
+  });
+}
+
+/* ------------------------------------------------------------------
+   REPORT 3: what drives kudos on Strava (group project)
+   ------------------------------------------------------------------ */
+function kudosReport(data) {
+  const k = data.kudos;
+  const photo = k.finalModel.find((r) => r.h === "H1");
+  const dist = k.finalModel.find((r) => r.h === "H3");
+  const m = k.logit.metrics;
+  const pct = (rr) => `${rr >= 1 ? "+" : "−"}${Math.abs(Math.round((rr - 1) * 100))}%`;
+  const KUDOS_REPO = "https://github.com/AntoA301/kudosmaxx";
+
+  return frame({
+    id: "kudos",
+    title: "How to KudosMaxx: what drives engagement on Strava?",
+    method: "OLS, Poisson and logistic regression",
+    course: "MGSC 661, McGill MMA, 2026",
+    repoUrl: KUDOS_REPO,
+    question: "What drives the number of kudos a run gets on Strava: effort (distance, pace, personal records), presentation (photos, captions) or timing (weekends)?",
+    credit: "Group project with Yasmine Mekki Berrada, Eglantine Dupuy and Astrid Philippet. My part: checks and robustness, the final model, the logistic check and the synthesis.",
+    tools: ["Python", "statsmodels", "scikit-learn", "pandas"],
+    sections: {
+      brief: {
+        label: "Brief",
+        render: () => [
+          h("div", { class: "finding" }, [
+            p("Photos and distance drive kudos. Weekends, captions, personal records and pace stop mattering once distance and the growing audience are taken into account."),
+            p("A photo or video brings about 20% more kudos, and every extra kilometre about 4% more, in the final model and in all five robustness refits."),
+          ]),
+          h("div", { class: "stat-row" }, [
+            stat(String(k.runs), `public runs from one athlete's Strava, ${k.period}`),
+            stat(pct(photo.rr), "kudos for a run with a photo or video (rate ratio 1.20)", "amber"),
+            stat(`${pct(dist.rr)} / km`, "kudos for each extra kilometre (rate ratio 1.04)", "amber"),
+            stat(m.aucTest.toFixed(2), `AUC for spotting a breakout run (${m.aucChrono.toFixed(2)} on a time-based split)`, "sage"),
+          ]),
+          h("div", { class: "prose" }, [
+            h("h4", { text: "Recommendations" }),
+            h("ul", { class: "bullets" }, [
+              h("li", { text: "Add a photo or video to every post. It gives about 20% more kudos, around 2 more on a typical 10-kudo run, and it is the easiest thing to change." }),
+              h("li", { text: "Longer runs get more kudos, about 4% per km. Worth posting long runs with a photo, but not a reason to run further." }),
+              h("li", { text: "Posting on the weekend does not help by itself. Weekend runs only did better because they were longer." }),
+              h("li", { text: "PRs, achievements, pace and captions make no clear difference once distance, photos and the audience are accounted for." }),
+              h("li", { text: "The audience matters most. Growing the follower base probably matters more than any single post, though follower counts were not available to test it." }),
+            ]),
+          ]),
+          h("p", { class: "chart-source" }, [
+            "The final presentation is in the ",
+            h("a", { class: "textlink", href: KUDOS_REPO, target: "_blank", rel: "noopener", text: "GitHub repository" }),
+            ".",
+          ]),
+        ],
+      },
+
+      method: {
+        label: "Method",
+        render: () => {
+          const quarterly = figure({
+            title: "The audience grew, then dipped",
+            note: "Average kudos per run by quarter. Strava keeps no past follower counts, so the models control for this curve with a quadratic time trend.",
+            source: "Source: KudosMaxx notebook, Part 1.",
+            body: vbars(
+              k.quarterly.map(([q, mean, n]) => ({
+                key: q,
+                label: q.replace(" 20", " ’"),
+                value: mean,
+                color: C.sageDim,
+                tip: `<strong>${q}</strong><div class="t-row">Average kudos <b>${mean.toFixed(2)}</b></div><div class="t-row">Runs <b>${n}</b></div>`,
+              })),
+              { format: (v) => fmt.num(v, 0), labelEvery: 2 },
+            ),
+          });
+          const tc = figure({
+            title: "Choosing the time control",
+            note: "Time-only Poisson models; lower AIC is better. The quadratic beats a straight line by a wide margin (likelihood-ratio p < 0.0001) and nearly matches quarter dummies with 3 parameters instead of 12.",
+            source: "Source: KudosMaxx notebook, Part 1.",
+            body: hbars(
+              k.timeControl.map((t) => ({
+                label: t.label,
+                value: t.aic,
+                color: t.label.startsWith("Quadratic") ? C.amber : C.sageDim,
+                tip: `<strong>${t.label}</strong><div class="t-row">AIC <b>${t.aic.toFixed(2)}</b></div><div class="t-row">Parameters <b>${t.params}</b></div>`,
+              })),
+              { domain: [900, 1010], format: (v) => fmt.num(v, 0), valueFormat: (v) => v.toFixed(2), labelWidth: 170 },
+            ),
+          });
+          return [
+            h("ol", { class: "pipeline" }, [
+              h("li", {}, [h("strong", { text: "Prepare" }), `${k.runs} public runs, kudos entered by hand, PR rank and photo flags built`]),
+              h("li", {}, [h("strong", { text: "Control for audience" }), "Quadratic time trend, plus the previous five runs' average kudos"]),
+              h("li", {}, [h("strong", { text: "OLS baseline" }), `Adjusted R² ${k.ols.adjR2.toFixed(2)}, robust HC3 errors, diagnostics`]),
+              h("li", {}, [h("strong", { text: "Poisson" }), "Count model with a log link, nested models A to D, rate ratios"]),
+              h("li", {}, [h("strong", { text: "Check and summarise" }), "Five refits, a logistic model of breakout runs, H1 to H7 verdicts"]),
+            ]),
+            explain("What is a rate ratio?", [
+              "Kudos are counts, so the main model is a Poisson regression, whose effects multiply instead of add. A rate ratio of 1.20 means 20% more kudos; 1 means no effect; below 1 means fewer.",
+              "That suits a growing audience: a photo adds about 20% whether a run would otherwise get 5 kudos or 15.",
+            ]),
+            explain("What is a breakout run?", [
+              "A run that gets more kudos than the median of the 10 runs before it. For example, if the last 10 runs had a median of 9 kudos and the next one gets 12, it is a breakout.",
+              "Because each run is compared with recent ones, audience growth is already built in. The logistic model then checks whether the same features predict breakouts.",
+            ]),
+            quarterly,
+            tc,
+          ];
+        },
+      },
+
+      findings: {
+        label: "Findings",
+        render: () => {
+          const verdicts = h(
+            "div",
+            { class: "refute" },
+            k.verdicts.map((v) =>
+              h("div", { class: "refute-row verdict-row" }, [
+                h("div", {}, [h("strong", { text: `${v.h} ${v.label}` })]),
+                h("span", { text: v.note }),
+                h("span", { class: v.verdict === "Supported" ? "verdict" : "verdict muted", text: v.verdict }),
+              ]),
+            ),
+          );
+
+          const rawHost = h("div");
+          rawHost.append(
+            hbars(
+              k.ttests.map((t) => ({
+                label: `${t.h} ${t.label}`,
+                value: t.yes - t.no,
+                color: t.p < 0.05 ? C.amber : C.sageDim,
+                tip: `<strong>${t.h} ${t.label}</strong><div class="t-row">With <b>${t.yes.toFixed(2)}</b></div><div class="t-row">Without <b>${t.no.toFixed(2)}</b></div><div class="t-row">Welch t-test p <b>${t.p.toFixed(3)}</b></div>`,
+              })),
+              { domain: [-1, 4], format: (v) => fmt.signed(v, 0), valueFormat: (v) => fmt.signed(v, 1), labelWidth: 210, rowH: 28 },
+            ),
+          );
+          const raw = figure({
+            title: "Before controls: raw gaps in average kudos",
+            note: "With minus without, no controls. Amber = significant in a Welch t-test. Weekend looks strong here, but weekend runs are longer: once distance is in the model, the gap disappears.",
+            source: "Source: KudosMaxx notebook, Part 1.",
+            body: rawHost,
+          });
+
+          const forest = figure({
+            title: "Final model: what multiplies kudos",
+            note: `Poisson rate ratios with 95% intervals (robust HC1), ${k.finalRuns} runs, controlling for the audience trend and recent kudos. Right of the dashed line = more kudos. Only photos and distance clear it.`,
+            source: "Source: KudosMaxx notebook, Part 4.",
+            body: hbars(
+              k.finalModel.map((r) => ({
+                label: r.label,
+                value: r.rr,
+                lo: r.lo,
+                hi: r.hi,
+                color: r.lo > 1 ? C.amber : r.h === "control" ? C.soft : C.sage,
+                tip: `<strong>${r.label}</strong><div class="t-row">Hypothesis <b>${r.h === "control" ? "Control" : r.h}</b></div><div class="t-row">Rate ratio <b>${r.rr.toFixed(3)}</b></div><div class="t-row">95% CI <b>${r.lo.toFixed(3)} to ${r.hi.toFixed(3)}</b></div><div class="t-row">Robust p <b>${r.p < 0.001 ? "< 0.001" : r.p.toFixed(3)}</b></div>`,
+              })),
+              { domain: [0.75, 1.5], format: (v) => `×${v.toFixed(2)}`, valueFormat: (v) => `×${v.toFixed(2)}`, labelWidth: 210, ci: true, ref: 1 },
+            ),
+          });
+
+          const lg = Math.log10;
+          const odds = figure({
+            title: "Breakout runs: logistic check",
+            note: `Odds ratios for a breakout, ${k.logit.train} training runs (log scale). A photo or video multiplies the odds by 3.6; each extra km by 1.22.`,
+            source: "Source: KudosMaxx notebook, Part 5.",
+            body: hbars(
+              k.logit.odds.map((o) => ({
+                label: o.label,
+                value: lg(o.or),
+                lo: lg(o.lo),
+                hi: lg(o.hi),
+                color: o.p <= 0.05 ? C.amber : C.sage,
+                tip: `<strong>${o.label}</strong><div class="t-row">Odds ratio <b>${o.or.toFixed(3)}</b></div><div class="t-row">95% CI <b>${o.lo.toFixed(3)} to ${o.hi.toFixed(3)}</b></div><div class="t-row">p <b>${o.p.toFixed(3)}</b></div>`,
+              })),
+              { domain: [-0.5, 1], format: (v) => `×${(10 ** v).toFixed(v < 0 ? 2 : 1)}`, valueFormat: (v) => `×${(10 ** v).toFixed(2)}`, labelWidth: 210, ci: true, ref: 0 },
+            ),
+          });
+
+          return [
+            h("h4", { class: "subhead", text: "Hypotheses H1 to H7" }),
+            verdicts,
+            raw,
+            forest,
+            odds,
+            h("div", { class: "stat-row" }, [
+              stat(`${Math.round(m.accuracy * 100)}%`, `test accuracy vs ${Math.round(m.baseline * 100)}% for always guessing the common class`, "sage"),
+              stat(`${Math.round(m.sensitivity * 100)}%`, "of breakout runs caught"),
+              stat(`${Math.round(m.specificity * 100)}%`, "of ordinary runs correctly ruled out"),
+              stat(m.aucTest.toFixed(2), `AUC on the ${k.logit.test}-run test set; ${m.aucChrono.toFixed(2)} when testing on the newest runs`),
+            ]),
+          ];
+        },
+      },
+
+      robustness: {
+        label: "Robustness",
+        render: () => {
+          const host = h("div");
+          const draw = (key) => {
+            host.replaceChildren(
+              hbars(
+                k.refits.map((r) => ({
+                  label: r.label,
+                  value: r[key],
+                  lo: null,
+                  hi: null,
+                  color: r.label === "Final model" ? C.amber : C.sage,
+                  tip: `<strong>${r.label}</strong><div class="t-row">Photo or video <b>×${r.photo.toFixed(3)}</b></div><div class="t-row">Distance, per km <b>×${r.distance.toFixed(3)}</b></div>`,
+                })),
+                key === "photo"
+                  ? { domain: [1, 1.3], format: (v) => `×${v.toFixed(2)}`, valueFormat: (v) => `×${v.toFixed(3)}`, labelWidth: 250, ci: true, ref: 1 }
+                  : { domain: [1, 1.05], format: (v) => `×${v.toFixed(2)}`, valueFormat: (v) => `×${v.toFixed(3)}`, labelWidth: 250, ci: true, ref: 1 },
+              ),
+            );
+          };
+          draw("photo");
+          const refits = figure({
+            title: "The two effects in every refit",
+            note: "Each refit changes one thing in the final model. Both effects stay significant in all of them.",
+            controls: toggle([{ key: "photo", label: "Photo or video" }, { key: "distance", label: "Distance" }], "photo", draw, "Effect shown"),
+            source: "Source: KudosMaxx notebook, Part 4.",
+            body: host,
+          });
+          const [before, after] = k.residuals;
+          return [
+            h("div", { class: "finding" }, [
+              p("Runs close together had related kudos, which the time trend alone missed. Adding the previous five runs' average fixed it without changing the photo or distance results."),
+            ]),
+            h("div", { class: "stat-row" }, [
+              stat(`${before.acf1.toFixed(2)} → ${after.acf1.toFixed(2)}`, "lag-1 autocorrelation of residuals, before and after the control", "sage"),
+              stat(`${before.ljungBoxP.toFixed(3)} → ${after.ljungBoxP.toFixed(3)}`, "Ljung-Box p-value at lag 10 (above 0.05 = no autocorrelation)", "sage"),
+              stat(`${before.dw.toFixed(2)} → ${after.dw.toFixed(2)}`, "Durbin-Watson (about 2 = no autocorrelation)", "sage"),
+              stat(String(k.finalModelStats.dispersion), "Pearson dispersion of the final model: no overdispersion"),
+            ]),
+            refits,
+            explain("Why the extra refits?", [
+              "Six official races and a handful of unusual runs could steer the estimates, so the model was refitted without them, with quarter dummies instead of the time curve, with log-transformed elevation and achievements, and with a photo × time interaction.",
+              "All variance inflation factors stay below 2.5, so the predictors are not tangled up with each other.",
+            ]),
+          ];
+        },
+      },
+
+      limitations: {
+        label: "Limitations",
+        render: () =>
+          h("div", { class: "prose" }, [
+            h("ul", { class: "bullets" }, [
+              h("li", { text: "One runner and 178 runs: this is a case study, and results may not hold for other athletes." }),
+              h("li", { text: "Observational data: runs with photos may simply be more special runs. Distance, races and the audience are controlled, but not everything." }),
+              h("li", { text: "No past follower counts. Strava only shows today's number, so time and recent kudos stand in for the audience." }),
+              h("li", { text: "Photos and captions are yes/no flags: one photo counts the same as five. Tagged friends and feed changes were not recorded." }),
+              h("li", { text: "Small groups: only 6 official races and 8 to 21 runs per PR level, so those effects are uncertain." }),
+              h("li", { text: "The logistic model has 5.6 events per predictor, below the usual 10, so it is used only as a check." }),
             ]),
           ]),
       },

@@ -1,6 +1,6 @@
 // Small SVG chart builders used by the reports. Every mark gets a keyboard-
 // focusable hit area with a tooltip, so values are readable without a mouse.
-import { s, h, scale, withTip } from "./util.js?v=20261125-2";
+import { s, h, scale, withTip } from "./util.js?v=20261125-3";
 
 // Charts are drawn once per open, at a width that suits the screen.
 const narrow = () => window.innerWidth < 600;
@@ -60,7 +60,7 @@ export function toggle(options, active, onChange, label) {
  * Horizontal bars, optionally with confidence intervals and a zero line.
  * rows: [{label, value, lo, hi, color, tip, onclick, emphasis}]
  */
-export function hbars(rows, { domain, format, valueFormat, labelWidth = 230, rowH = 30, ci = false, zero = true } = {}) {
+export function hbars(rows, { domain, format, valueFormat, labelWidth = 230, rowH = 30, ci = false, zero = true, ref = null } = {}) {
   chartWidth();
   const vfmt = valueFormat || format;
   const stacked = narrow();
@@ -74,9 +74,11 @@ export function hbars(rows, { domain, format, valueFormat, labelWidth = 230, row
   const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" });
 
   for (const t of ticks(d0, d1)) {
-    svg.append(s("line", { class: t === 0 && zero ? "zero" : "gridline", x1: x(t), x2: x(t), y1: 0, y2: H - 22 }));
+    svg.append(s("line", { class: t === 0 && zero && ref === null ? "zero" : "gridline", x1: x(t), x2: x(t), y1: 0, y2: H - 22 }));
     svg.append(s("text", { class: "axis-label", x: x(t), y: H - 6, "text-anchor": "middle", text: format(t) }));
   }
+  // reference line, e.g. a rate ratio of 1 = no effect
+  if (ref !== null) svg.append(s("line", { class: "zero", x1: x(ref), x2: x(ref), y1: 0, y2: H - 22, "stroke-dasharray": "4 3" }));
 
   rows.forEach((r, i) => {
     const y = stacked ? i * rowH + 16 : i * rowH;

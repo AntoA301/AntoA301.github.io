@@ -1208,6 +1208,28 @@ details.explain > div p + p {
   color: var(--sage);
   font-weight: 600;
 }
+.refute-row .verdict.muted {
+  color: var(--soft);
+  font-weight: 400;
+}
+.verdict-row {
+  grid-template-columns: minmax(150px, 0.9fr) minmax(0, 2.2fr) minmax(120px, 0.9fr);
+}
+.verdict-row > span:nth-child(2) {
+  font-size: var(--step--1);
+  color: #c4cabe;
+}
+.subhead {
+  font-variation-settings: var(--wide);
+  font-size: var(--step-1);
+  margin-bottom: 12px;
+}
+.report-credit {
+  font-size: var(--step--1);
+  color: var(--soft);
+  max-width: 70ch;
+  margin: -8px 0 16px;
+}
 
 /* ------------------------------------------------------------------
    PROFILE
@@ -1293,7 +1315,7 @@ details.explain > div p + p {
 .skillmap table {
   border-collapse: collapse;
   width: 100%;
-  min-width: 760px;
+  min-width: 840px;
   font-size: var(--step--1);
 }
 .skillmap th,
@@ -1337,7 +1359,7 @@ details.explain > div p + p {
 }
 .skillmap td {
   text-align: center;
-  width: 11%;
+  width: 10%;
 }
 .skillmap .cell {
   display: inline-block;

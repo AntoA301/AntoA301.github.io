@@ -1,11 +1,11 @@
 // Entry point: hash routing between views, the sliding nav indicator,
 // the local clock and the quick-jump command bar.
-import { load, h, hideTip } from "./util.js?v=20261125-2";
-import { initRadar } from "./radar.js?v=20261125-2";
-import { initMap, selectRegion } from "./map.js?v=20261125-2";
-import { initReports, openReport } from "./reports.js?v=20261125-2";
-import { initSkills } from "./skills.js?v=20261125-2";
-import { initTimeline } from "./timeline.js?v=20261125-2";
+import { load, h, hideTip } from "./util.js?v=20261125-3";
+import { initRadar } from "./radar.js?v=20261125-3";
+import { initMap, selectRegion } from "./map.js?v=20261125-3";
+import { initReports, openReport } from "./reports.js?v=20261125-3";
+import { initSkills } from "./skills.js?v=20261125-3";
+import { initTimeline } from "./timeline.js?v=20261125-3";
 
 const VIEWS = ["overview", "map", "reports", "profile", "experience"];
 const started = new Set();
@@ -93,6 +93,7 @@ async function initCommand() {
     { label: "Kursk: actual vs forecast", hint: "Report chart", href: "#reports/forecast/findings" },
     { label: "Are drones deadlier than artillery?", hint: "Report", href: "#reports/drones" },
     { label: "Robustness tests", hint: "Report section", href: "#reports/drones/robustness" },
+    { label: "How to KudosMaxx: what drives engagement on Strava?", hint: "Report", href: "#reports/kudos" },
     ...geo.regions.map((r) => ({ label: r.id, hint: `Region, ${r.country}`, href: `#map/${r.id}` })),
     { label: "Code on GitHub", hint: "Link", href: "https://github.com/AntoA301/ukraine-fronts-forecasting" },
   ];

@@ -1,6 +1,6 @@
 // Skills map: each skill is linked only to the places I actually used it.
 // There are no proficiency scores, on purpose.
-import { h } from "./util.js?v=20261125-2";
+import { h } from "./util.js?v=20261125-3";
 
 const CONTEXTS = [
   { id: "butterfield", label: "Butterfield", href: "#experience" },
@@ -8,6 +8,7 @@ const CONTEXTS = [
   { id: "enactus", label: "Enactus", href: "#experience" },
   { id: "forecast", label: "Forecast report", href: "#reports/forecast" },
   { id: "drones", label: "Drones report", href: "#reports/drones" },
+  { id: "kudos", label: "KudosMaxx report", href: "#reports/kudos" },
   { id: "mma", label: "MMA coursework", href: "#experience" },
 ];
 
@@ -25,7 +26,8 @@ const GROUPS = [
   {
     name: "Analytics methods",
     skills: [
-      ["Predictive modelling", ["forecast", "mma"], "Weekly fatality forecast; regression and classification coursework."],
+      ["Predictive modelling", ["forecast", "kudos", "mma"], "Weekly fatality forecast; breakout-run classifier; regression and classification coursework."],
+      ["Regression (OLS, Poisson, logistic)", ["kudos", "mma"], "Count models with rate ratios, robust errors and refits for the Strava study."],
       ["Machine learning", ["forecast", "drones", "mma"], "Random Forest, XGBoost T-learner, neural networks."],
       ["Causal inference", ["drones"], "Meta-learners, propensity scores and refutation tests."],
       ["Monte Carlo simulation", ["mma"], "Revenue management simulation in Excel."],
@@ -36,15 +38,16 @@ const GROUPS = [
   {
     name: "Tools",
     skills: [
-      ["Python and pandas", ["forecast", "drones", "mma"], "Both reports, end to end."],
-      ["scikit-learn", ["forecast", "mma"], "Pipelines, Random Forest, time-series cross-validation."],
+      ["Python and pandas", ["forecast", "drones", "kudos", "mma"], "All three reports, end to end."],
+      ["scikit-learn", ["forecast", "kudos", "mma"], "Pipelines, Random Forest, time-series cross-validation, train/test splits and ROC."],
+      ["statsmodels", ["kudos"], "OLS, Poisson GLM and logistic models, diagnostics and autocorrelation tests."],
       ["CausalML, DoWhy, XGBoost", ["drones"], "Average and per-strike effects, causal graph, refutations."],
       ["GeoPandas", ["forecast", "drones"], "Maps of the front lines from Natural Earth borders."],
       ["PyTorch", ["mma"], "Neural network assignment (regression and MNIST)."],
       ["SQL", ["mma"], "Database design and querying coursework."],
       ["Excel (Solver)", ["enactus", "mma"], "Matching redemption logs; optimization models."],
       ["SAP", ["bluewater"], "General ledger reconciliation."],
-      ["GitHub", ["forecast", "drones", "mma"], "Public repository for both reports."],
+      ["GitHub", ["forecast", "drones", "kudos", "mma"], "Public repositories for all three reports."],
     ],
   },
 ];
