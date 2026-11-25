@@ -561,7 +561,8 @@ main {
 .mapview > *,
 .reports > *,
 .map-side > *,
-.profile > * {
+.profile-layout > *,
+.skills-page > * {
   min-width: 0;
 }
 .map-stage {
@@ -1235,27 +1236,202 @@ details.explain > div p + p {
 }
 
 /* ------------------------------------------------------------------
-   PROFILE
+   PROFILE: open dossier layout, side menu, no card per section
    ------------------------------------------------------------------ */
-.profile {
+.profile-layout {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+.profile-nav {
+  position: sticky;
+  top: calc(var(--top) + 32px);
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--line);
+}
+.profile-nav-title {
+  color: var(--soft);
+  font-size: var(--step--1);
+  padding: 0 0 10px 16px;
+}
+.profile-nav a {
+  padding: 7px 16px;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  color: var(--soft);
+  text-decoration: none;
+  transition:
+    color 0.15s,
+    border-color 0.2s;
+}
+.profile-nav a:hover {
+  color: var(--text);
+}
+.profile-nav a[aria-current] {
+  color: var(--text);
+  border-left-color: var(--amber);
+}
+
+.profile-body {
+  max-width: 880px;
+}
+.psec {
+  padding: 8px 0 56px;
+  scroll-margin-top: calc(var(--top) + 24px);
+}
+.psec + .psec {
+  padding-top: 48px;
+  border-top: 1px solid var(--line);
+}
+.psec-title {
+  font-variation-settings: var(--wide);
+  font-weight: 800;
+  font-size: var(--step-3);
+  line-height: 1.1;
+  margin-bottom: 22px;
+}
+/* short amber tick above each heading, like a file tab */
+.psec-title::before {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 3px;
+  background: var(--amber);
+  margin-bottom: 14px;
+}
+.profile-lead {
+  font-variation-settings: "wdth" 110;
+  font-size: clamp(21px, 2.3vw, 27px);
+  line-height: 1.4;
+  max-width: 34ch;
+  color: var(--text);
+  margin-bottom: 22px;
+}
+.profile-text {
+  font-size: var(--step-1);
+  line-height: 1.7;
+  color: #cdd3c8;
+  max-width: 64ch;
+}
+.profile-text + .profile-text {
+  margin-top: 16px;
+}
+
+.ideas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.idea {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 16px;
+}
+.idea h3,
+.beyond h3 {
+  font-variation-settings: "wdth" 112;
+  font-weight: 700;
+  font-size: var(--step-1);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.idea p {
+  color: #c4cabe;
+  line-height: 1.6;
+}
+.in-practice {
+  max-width: 64ch;
+  border-left: 3px solid var(--amber);
+  background: var(--bg-2);
+  padding: 18px 22px;
+}
+.in-practice p {
+  font-size: var(--step-1);
+  line-height: 1.65;
+  color: #cdd3c8;
+}
+.in-practice .in-practice-label {
+  font-size: var(--step-0);
+  color: var(--amber);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.why {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 44px;
+  align-items: start;
+}
+.stakes {
+  border-top: 1px solid var(--line-strong);
+}
+.stakes div {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.stakes dt {
+  color: var(--sage);
+  font-weight: 600;
+  font-size: var(--step-0);
+  margin-bottom: 3px;
+}
+.stakes dd {
+  color: #c4cabe;
+  line-height: 1.55;
+}
+
+.crosslinks {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+.crosslinks a {
+  display: inline-block;
+  padding: 9px 16px;
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+.crosslinks a:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+/* beyond work: visually secondary */
+.psec-secondary .psec-title {
+  font-size: var(--step-2);
+}
+.beyond {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+.beyond h3 {
+  font-size: var(--step-0);
+  color: var(--sage);
+}
+.beyond p {
+  color: #c4cabe;
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+.profile-aside {
+  margin-top: 22px;
+  color: var(--soft);
+}
+
+/* skills tab */
+.skills-page {
+  display: grid;
   gap: var(--gap);
-}
-.box-edu {
-  grid-column: span 7;
-}
-.box-career {
-  grid-column: span 5;
-}
-.box-skills {
-  grid-column: span 12;
-}
-.box-lang {
-  grid-column: span 5;
-}
-.box-interests {
-  grid-column: span 7;
 }
 
 .entry + .entry {
@@ -1694,8 +1870,44 @@ html:not(.js) .xp + .xp {
   .glance > div:nth-child(odd) {
     border-left: 1px solid var(--line);
   }
-  .profile > * {
-    grid-column: span 12 !important;
+  .profile-layout {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .profile-nav {
+    position: sticky;
+    top: var(--top);
+    z-index: 5;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-left: none;
+    border-bottom: 1px solid var(--line);
+    background: rgba(14, 18, 16, 0.95);
+    margin: -8px -14px 8px;
+    padding: 0 6px;
+  }
+  .profile-nav-title {
+    display: none;
+  }
+  .profile-nav a {
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    margin: 0 0 -1px;
+    padding: 12px 10px;
+  }
+  .profile-nav a[aria-current] {
+    border-bottom-color: var(--amber);
+  }
+  .ideas,
+  .beyond,
+  .why {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .psec {
+    scroll-margin-top: calc(var(--top) + 60px);
   }
   .status-note {
     display: none;
@@ -1777,5 +1989,16 @@ html:not(.js) .xp + .xp {
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* six tabs on a small phone: tighten so all of them fit without scrolling */
+@media (max-width: 430px) {
+  .topbar {
+    padding: 0 10px;
+  }
+  .viewnav a {
+    padding: 0 5px;
+    font-size: 13px;
   }
 }

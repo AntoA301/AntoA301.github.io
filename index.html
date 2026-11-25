@@ -17,8 +17,8 @@
       rel="stylesheet"
     />
     <script>document.documentElement.classList.add("js");</script>
-    <link rel="stylesheet" href="css/site.css?v=20261125-6" />
-    <script type="module" src="js/main.js?v=20261125-6"></script>
+    <link rel="stylesheet" href="css/site.css?v=20261125-7" />
+    <script type="module" src="js/main.js?v=20261125-7"></script>
   </head>
 
   <body>
@@ -39,6 +39,7 @@
         <a href="#reports" data-view="reports">Reports</a>
         <a href="#profile" data-view="profile">Profile</a>
         <a href="#experience" data-view="experience">Experience</a>
+        <a href="#skills" data-view="skills">Skills</a>
         <span class="viewnav-indicator" aria-hidden="true"></span>
       </nav>
 
@@ -86,7 +87,7 @@
 
             <div class="actions">
               <a class="btn btn-primary" href="#experience">See my experience</a>
-              <a class="btn" href="#profile">Skills and education</a>
+              <a class="btn" href="#profile">About me</a>
             </div>
             <p class="research-link">
               I also do research projects in forecasting, causal inference and regression modelling.
@@ -157,41 +158,155 @@
            VIEW 4: PROFILE
            ============================================================ -->
       <section class="view" id="view-profile" data-view="profile" aria-labelledby="profile-title">
-        <div class="view-head">
-          <h2 id="profile-title">Profile</h2>
-          <p>Finance and operations background, analytics training, and where I want to apply both.</p>
+        <div class="profile-layout">
+          <nav class="profile-nav" aria-label="Profile sections">
+            <p class="profile-nav-title">On this page</p>
+            <a href="#profile/intro" data-section="intro">Introduction</a>
+            <a href="#profile/approach" data-section="approach">How I work</a>
+            <a href="#profile/why-defence" data-section="why-defence">Why defence</a>
+            <a href="#profile/direction" data-section="direction">Direction</a>
+            <a href="#profile/beyond" data-section="beyond">Beyond work</a>
+          </nav>
+
+          <div class="profile-body">
+            <!-- A. Introduction -->
+            <section class="psec" id="intro" aria-labelledby="profile-title">
+              <h2 id="profile-title" class="psec-title">Profile</h2>
+              <p class="profile-lead">
+                Defence has interested me since I was young. Today I bring to it the habits I built investigating fraud
+                cases: break the problem down, follow the evidence, and only then draw a conclusion.
+              </p>
+              <p class="profile-text">
+                I work where finance, operations and data meet, and I care less about having an answer than about being
+                able to justify it. This page is about how I think and why I want to do this work in defence. The
+                details of what I’ve done live in the other sections.
+              </p>
+            </section>
+
+            <!-- B. Professional perspective -->
+            <section class="psec" id="approach" aria-labelledby="approach-title">
+              <h2 id="approach-title" class="psec-title">How I work</h2>
+              <div class="ideas">
+                <div class="idea">
+                  <h3>Break it down first</h3>
+                  <p>
+                    I start a difficult problem by splitting it into smaller, manageable questions instead of jumping to
+                    conclusions.
+                  </p>
+                </div>
+                <div class="idea">
+                  <h3>Let the evidence decide</h3>
+                  <p>
+                    I look at what information is actually available, find where it doesn’t add up, and build a
+                    conclusion that the evidence supports.
+                  </p>
+                </div>
+                <div class="idea">
+                  <h3>Detail and the big picture</h3>
+                  <p>
+                    Good problem-solving needs both. It isn’t only about finding an answer, but understanding why
+                    something happened and making sure the conclusion can be justified.
+                  </p>
+                </div>
+              </div>
+              <blockquote class="in-practice">
+                <p class="in-practice-label">In practice, at Butterfield</p>
+                <p>
+                  An unusual transaction was never proof of fraud on its own. I would examine the surrounding activity,
+                  trace transaction patterns and pin down the discrepancies, so each finding strengthened the case and
+                  led to a better-informed decision.
+                </p>
+              </blockquote>
+            </section>
+
+            <!-- C. Why defence -->
+            <section class="psec" id="why-defence" aria-labelledby="why-title">
+              <h2 id="why-title" class="psec-title">Why defence</h2>
+              <div class="why">
+                <div class="why-text">
+                  <p class="profile-text">
+                    I’ve followed defence since I was young, and over time that interest became a conviction: it is an
+                    integral industry. A country’s security underpins almost everything else it does, and the people who
+                    serve depend on decisions made far from the front line, in budgets, contracts and supply chains.
+                  </p>
+                  <p class="profile-text">
+                    That is where I want to contribute. Clearer procurement means the right equipment reaches the people
+                    who need it, when they need it, and that can save lives. It also means public money isn’t wasted,
+                    because every dollar lost to inefficiency is a dollar that could have supported veterans returning
+                    home or other social programs.
+                  </p>
+                </div>
+                <dl class="stakes" aria-label="What clearer procurement protects">
+                  <div>
+                    <dt>People on the front line</dt>
+                    <dd>Equipment that arrives on time, works, and keeps service members safer.</dd>
+                  </div>
+                  <div>
+                    <dt>Taxpayers’ money</dt>
+                    <dd>Spending that can be traced and justified, with less lost to waste.</dd>
+                  </div>
+                  <div>
+                    <dt>What that money could fund</dt>
+                    <dd>Support for veterans who return home, and other social programs.</dd>
+                  </div>
+                </dl>
+              </div>
+            </section>
+
+            <!-- D. Professional direction -->
+            <section class="psec" id="direction" aria-labelledby="direction-title">
+              <h2 id="direction-title" class="psec-title">Direction</h2>
+              <p class="profile-text">
+                I want to build my career in the defence industry, at the point where analytics, finance and business
+                solutions meet: the work of turning budgets, contracts and data into decisions that hold up to scrutiny.
+              </p>
+              <ul class="crosslinks" aria-label="Elsewhere on this site">
+                <li><a href="#experience">View my professional background</a></li>
+                <li><a href="#reports">Explore my analytical research</a></li>
+                <li><a href="#skills">Explore my technical capabilities</a></li>
+              </ul>
+            </section>
+
+            <!-- E. Beyond work -->
+            <section class="psec psec-secondary" id="beyond" aria-labelledby="beyond-title">
+              <h2 id="beyond-title" class="psec-title">Beyond work</h2>
+              <div class="beyond">
+                <div>
+                  <h3>Staying fit</h3>
+                  <p>
+                    A huge part of my life. I work out and run a lot, which is why the
+                    <a class="textlink" href="#reports/kudos">Strava project</a> mattered to me.
+                  </p>
+                </div>
+                <div>
+                  <h3>Football</h3>
+                  <p>I like football (soccer) too.</p>
+                </div>
+                <div>
+                  <h3>Geopolitics and technology</h3>
+                  <p>
+                    Geopolitics and armed conflicts and their impact on global markets, and how machine learning lets
+                    unmanned vehicles take on dangerous tasks such as medical evacuations and drone interception.
+                  </p>
+                </div>
+              </div>
+              <p class="profile-aside">
+                Hackathons and student leadership are under <a class="textlink" href="#experience">Experience</a>.
+              </p>
+            </section>
+          </div>
         </div>
+      </section>
 
-        <div class="profile">
-          <section class="box box-edu" aria-labelledby="edu-title">
-            <h3 id="edu-title" class="box-title">Education</h3>
-            <div class="entry">
-              <div class="entry-head">
-                <h4>Master of Management in Analytics</h4>
-                <span class="dates">2026 – 2027</span>
-              </div>
-              <p class="org">McGill University, Desautels Faculty of Management, Montréal, QC</p>
-            </div>
-            <div class="entry">
-              <div class="entry-head">
-                <h4>Bachelor of Commerce, Finance &amp; Management</h4>
-                <span class="dates">2017 – 2022</span>
-              </div>
-              <p class="org">Saint Mary’s University, Halifax, NS</p>
-            </div>
-          </section>
-
-          <section class="box box-career" aria-labelledby="career-title">
-            <h3 id="career-title" class="box-title">Career interest</h3>
-            <p class="box-note">Roles in a defence setting</p>
-            <ul class="bullets">
-              <li>Financial Analyst</li>
-              <li>IMIT Business Solutions Analyst</li>
-              <li>Procurement Analyst</li>
-              <li>Defence analytics and technology</li>
-            </ul>
-          </section>
-
+      <!-- ============================================================
+           VIEW 5: SKILLS
+           ============================================================ -->
+      <section class="view" id="view-skills" data-view="skills" aria-labelledby="skills-view-title">
+        <div class="view-head">
+          <h2 id="skills-view-title">Skills</h2>
+          <p>Each skill is traced to where I actually used it: at work, in my research reports, or in MMA coursework.</p>
+        </div>
+        <div class="skills-page">
           <section class="box box-skills" aria-labelledby="skills-title">
             <div class="box-title-row">
               <h3 id="skills-title" class="box-title">Skills, and where I used them</h3>
@@ -208,22 +323,11 @@
               <li><strong>Arabic</strong> Proficient</li>
             </ul>
           </section>
-
-          <section class="box box-interests" aria-labelledby="int-title">
-            <h3 id="int-title" class="box-title">Personal interests</h3>
-            <ul class="bullets">
-              <li>Geopolitics and armed conflicts, and their impact on global markets</li>
-              <li>
-                How machine learning is enabling autonomous unmanned vehicles to take on dangerous tasks such as
-                medical evacuations and drone interception
-              </li>
-            </ul>
-          </section>
         </div>
       </section>
 
       <!-- ============================================================
-           VIEW 5: EXPERIENCE (timeline built by js/timeline.js from the entries below)
+           VIEW 6: EXPERIENCE (timeline built by js/timeline.js from the entries below)
            ============================================================ -->
       <section class="view" id="view-experience" data-view="experience" aria-labelledby="exp-title">
         <div class="view-head">

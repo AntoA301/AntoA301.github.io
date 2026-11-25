@@ -1,13 +1,14 @@
 // Entry point: hash routing between views, the sliding nav indicator,
 // the local clock and the quick-jump command bar.
-import { load, h, hideTip } from "./util.js?v=20261125-6";
-import { initRadar } from "./radar.js?v=20261125-6";
-import { initMap, selectRegion } from "./map.js?v=20261125-6";
-import { initReports, openReport } from "./reports.js?v=20261125-6";
-import { initSkills } from "./skills.js?v=20261125-6";
-import { initTimeline } from "./timeline.js?v=20261125-6";
+import { load, h, hideTip } from "./util.js?v=20261125-7";
+import { initRadar } from "./radar.js?v=20261125-7";
+import { initMap, selectRegion } from "./map.js?v=20261125-7";
+import { initReports, openReport } from "./reports.js?v=20261125-7";
+import { initSkills } from "./skills.js?v=20261125-7";
+import { initTimeline } from "./timeline.js?v=20261125-7";
+import { initProfile, showProfileSection } from "./profile.js?v=20261125-7";
 
-const VIEWS = ["overview", "map", "reports", "profile", "experience"];
+const VIEWS = ["overview", "map", "reports", "profile", "experience", "skills"];
 const started = new Set();
 let current = null;
 
@@ -18,7 +19,8 @@ async function start(view) {
   if (view === "overview") initRadar(document.getElementById("radar"), await load("geo"), await load("projects"));
   if (view === "map") await initMap(document.getElementById("mapview"), await load("geo"), await load("projects"));
   if (view === "reports") initReports(document.getElementById("reports"), await load("projects"));
-  if (view === "profile") initSkills(document.getElementById("skillmap"));
+  if (view === "profile") initProfile(document.getElementById("view-profile"));
+  if (view === "skills") initSkills(document.getElementById("skillmap"));
   if (view === "experience") initTimeline(document.getElementById("timeline"), document.getElementById("entries"));
 }
 
@@ -54,6 +56,7 @@ async function route() {
   await start(view);
   if (view === "map" && a) selectRegion(a);
   if (view === "reports") openReport(a, b);
+  if (view === "profile" && a) showProfileSection(a);
 }
 
 function moveIndicator() {
@@ -89,6 +92,8 @@ async function initCommand() {
     { label: "Reports", hint: "Section", href: "#reports" },
     { label: "Profile", hint: "Section", href: "#profile" },
     { label: "Experience", hint: "Section", href: "#experience" },
+    { label: "Skills", hint: "Section", href: "#skills" },
+    { label: "Why defence", hint: "Profile section", href: "#profile/why-defence" },
     { label: "Forecasting fatalities on the Russia–Ukraine fronts", hint: "Report", href: "#reports/forecast" },
     { label: "Kursk: actual vs forecast", hint: "Report chart", href: "#reports/forecast/findings" },
     { label: "Are drones deadlier than artillery?", hint: "Report", href: "#reports/drones" },

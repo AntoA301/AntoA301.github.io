@@ -7,12 +7,12 @@ Plain HTML, CSS and JavaScript modules, served by GitHub Pages from `main`. No b
 
 | Path | What it holds |
 |---|---|
-| `index.html` | Page shell. Profile and experience text live here, so they are easy to edit. |
+| `index.html` | Page shell. Profile, experience and skills text live here, so they are easy to edit. |
 | `css/site.css` | All styles. Colours and type sizes are tokens at the top. |
 | `js/main.js` | Routing between views (`#overview`, `#map/Kursk`, `#reports/drones/robustness` …), quick-jump bar, clock. |
 | `js/radar.js`, `js/map.js` | Overview radar and the research map. |
 | `js/reports.js`, `js/charts.js` | The two research reports and the small SVG chart library they use. |
-| `js/skills.js`, `js/timeline.js` | Skills map and experience timeline. |
+| `js/skills.js`, `js/timeline.js`, `js/profile.js` | Skills map, experience timeline, profile section menu. |
 | `data/projects.json` | Every figure shown in the reports, copied from the notebook outputs in [ukraine-fronts-forecasting](https://github.com/AntoA301/ukraine-fronts-forecasting). |
 | `data/geo.json` | Simplified region borders from Natural Earth (public domain). |
 

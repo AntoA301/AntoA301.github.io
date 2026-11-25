@@ -1,7 +1,7 @@
 // The two research reports, each with tabbed sections and interactive charts.
 // Every number comes from data/projects.json, which copies the notebook outputs.
-import { h, s, fmt } from "./util.js?v=20261125-6";
-import { figure, toggle, hbars, lineCompare, vbars } from "./charts.js?v=20261125-6";
+import { h, s, fmt } from "./util.js?v=20261125-7";
+import { figure, toggle, hbars, lineCompare, vbars } from "./charts.js?v=20261125-7";
 
 const REPO = "https://github.com/AntoA301/ukraine-fronts-forecasting/tree/main";
 const SRC = "Source: my notebook outputs on ACLED data, Aug 2023 – Sep 2025 (historical).";
