@@ -351,13 +351,84 @@
         flex: 1;
         min-width: 0;
       }
-      .job .dates {
+      .job .dates,
+      .entry .dates {
         flex-shrink: 0;
         font-size: 14px;
         color: var(--ink-soft);
         font-variant-numeric: tabular-nums;
         white-space: nowrap;
       }
+      /* boxes on the About me tab */
+      .info-box {
+        max-width: 68ch;
+        background: var(--panel);
+        border: 1px solid var(--ink);
+        padding: 20px 24px;
+        font-size: 16px;
+      }
+      .section-title.first {
+        margin-top: 8px;
+      }
+      .entry + .entry {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--contour);
+      }
+      .entry h3,
+      .box-label {
+        font-variation-settings: "wdth" 112;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 1.25;
+      }
+      .entry h3 {
+        flex: 1;
+        min-width: 0;
+      }
+      .entry .org {
+        font-size: 15px;
+        color: var(--ink-soft);
+        margin-top: 2px;
+      }
+      .box-label {
+        font-size: 15px;
+        margin-bottom: 8px;
+      }
+      .box-label ~ .box-label {
+        margin-top: 16px;
+      }
+      .tags {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .tags li {
+        font-size: 14px;
+        padding: 3px 10px;
+        border: 1px solid var(--contour);
+        background: var(--paper);
+      }
+      .languages {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 40px;
+      }
+      .languages strong {
+        display: block;
+        font-variation-settings: "wdth" 112;
+      }
+      .languages li {
+        font-size: 15px;
+        color: var(--ink-soft);
+      }
+      .languages strong {
+        color: var(--ink);
+        font-size: 16px;
+      }
+
       .duties {
         list-style: none;
         font-size: 15px;
@@ -503,7 +574,8 @@
           display: none;
         }
         .tab-button {
-          padding: 10px 16px;
+          padding: 10px 12px;
+          font-size: 16px;
         }
         .tab-art {
           display: none;
@@ -644,6 +716,15 @@
           class="tab-button"
           role="tab"
           aria-selected="false"
+          aria-controls="experience"
+          onclick="showTab('experience', this)"
+        >
+          Experience
+        </button>
+        <button
+          class="tab-button"
+          role="tab"
+          aria-selected="false"
           aria-controls="projects"
           onclick="showTab('projects', this)"
         >
@@ -697,16 +778,96 @@
 
       <!-- ---------- TAB 1: ABOUT ME ---------- -->
       <section id="about" class="tab-content active" role="tabpanel">
-        <div class="panel">
+        <h2 class="section-title first">Education</h2>
+        <div class="info-box">
+          <div class="entry">
+            <div class="job-head">
+              <h3>Master of Management in Analytics</h3>
+              <span class="dates">2026 – 2027</span>
+            </div>
+            <p class="org">
+              McGill University, Desautels Faculty of Management, Montréal, QC
+            </p>
+          </div>
+          <div class="entry">
+            <div class="job-head">
+              <h3>Bachelor of Commerce, Finance &amp; Management</h3>
+              <span class="dates">2017 – 2022</span>
+            </div>
+            <p class="org">Saint Mary’s University, Halifax, NS</p>
+          </div>
+        </div>
+
+        <h2 class="section-title">Skills</h2>
+        <div class="info-box">
+          <ul class="tags" aria-label="Skills">
+            <li>Financial analysis</li>
+            <li>Predictive modeling</li>
+            <li>Fraud &amp; risk analysis</li>
+            <li>Reconciliation</li>
+            <li>Process improvement</li>
+          </ul>
+        </div>
+
+        <h2 class="section-title">Technical skills</h2>
+        <div class="info-box">
+          <h3 class="box-label">Software</h3>
+          <ul class="tags" aria-label="Software">
+            <li>Python (pandas, scikit-learn, PyTorch)</li>
+            <li>SQL</li>
+            <li>Neo4j</li>
+            <li>Excel (Solver)</li>
+            <li>SAP</li>
+            <li>GitHub</li>
+            <li>MS Office</li>
+          </ul>
+          <h3 class="box-label">Models</h3>
+          <ul class="tags" aria-label="Models">
+            <li>Linear &amp; logistic regression</li>
+            <li>Decision trees</li>
+            <li>Neural networks</li>
+            <li>Monte Carlo simulation</li>
+            <li>Linear programming</li>
+            <li>NLP</li>
+          </ul>
+        </div>
+
+        <h2 class="section-title">Career interest</h2>
+        <div class="info-box">
           <p>
-            Hi my name is Anto Abousefian, I received my undergraduate degree in
-            Finance and Business Management. I am currently an MMA student. My
-            skills are speaking 4 languages. I would like a Financial Analyst
-            role or IMIT Business Solutions Analyst/ Procurement Analyst in a
-            Defense setting.
+            Financial Analyst, IMIT Business Solutions Analyst or Procurement
+            Analyst roles in a defence setting.
           </p>
         </div>
-        <h2 class="section-title">Previous job experience</h2>
+
+        <h2 class="section-title">Languages</h2>
+        <div class="info-box">
+          <ul class="languages">
+            <li><strong>English</strong> Fluent</li>
+            <li><strong>Armenian</strong> Fluent</li>
+            <li><strong>Arabic</strong> Proficient</li>
+          </ul>
+        </div>
+
+        <h2 class="section-title">Personal interests</h2>
+        <div class="info-box">
+          <ul class="duties">
+            <li>
+              Geopolitics and armed conflicts, and their impact on global
+              markets
+            </li>
+            <li>
+              How machine learning is enabling autonomous unmanned vehicles to
+              take on dangerous tasks such as medical evacuations and drone
+              interception
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---------- TAB 2: EXPERIENCE ---------- -->
+      <section id="experience" class="tab-content" role="tabpanel">
+        <h2 class="section-title first">Previous job experience</h2>
         <ol class="timeline">
           <li class="job">
             <div class="job-head">
@@ -801,7 +962,7 @@
         </ol>
       </section>
 
-      <!-- ---------- TAB 2: PROJECTS ---------- -->
+      <!-- ---------- TAB 3: PROJECTS ---------- -->
       <section id="projects" class="tab-content" role="tabpanel">
         <div class="cards">
           <!-- PROJECT 1 -->
