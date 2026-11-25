@@ -336,7 +336,7 @@
 
       .job-head {
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: space-between;
         align-items: baseline;
         gap: 4px 16px;
@@ -347,7 +347,12 @@
         font-size: 19px;
         line-height: 1.25;
       }
+      .job h3 {
+        flex: 1;
+        min-width: 0;
+      }
       .job .dates {
+        flex-shrink: 0;
         font-size: 14px;
         color: var(--ink-soft);
         font-variant-numeric: tabular-nums;
@@ -505,6 +510,9 @@
         }
         .panel {
           padding: 22px 20px;
+        }
+        .job-head {
+          flex-wrap: wrap;
         }
       }
     </style>
@@ -770,10 +778,10 @@
           </li>
           <li class="job">
             <div class="job-head">
-              <h3>Finance Manager, SMU Token Program</h3>
+              <h3>Finance Manager</h3>
               <span class="dates">Sep 2019 – Sep 2020</span>
             </div>
-            <p class="org">Enactus – Saint Mary’s University, Halifax, NS</p>
+            <p class="org">SMU Token Program, Enactus – Saint Mary’s University, Halifax, NS</p>
             <ul class="duties">
               <li>
                 Brought 3 former restaurant partners back into the token
