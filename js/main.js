@@ -1,12 +1,12 @@
 // Entry point: hash routing between views, the sliding nav indicator,
 // the local clock and the quick-jump command bar.
-import { load, h, hideTip } from "./util.js?v=20261125-8";
-import { initRadar } from "./radar.js?v=20261125-8";
-import { initMap, selectRegion } from "./map.js?v=20261125-8";
-import { initReports, openReport } from "./reports.js?v=20261125-8";
-import { initSkills } from "./skills.js?v=20261125-8";
-import { initTimeline } from "./timeline.js?v=20261125-8";
-import { initProfile, showProfileSection } from "./profile.js?v=20261125-8";
+import { load, h, hideTip } from "./util.js?v=20261125-9";
+import { initRadar } from "./radar.js?v=20261125-9";
+import { initMap, selectRegion } from "./map.js?v=20261125-9";
+import { initReports, openReport } from "./reports.js?v=20261125-9";
+import { initSkills } from "./skills.js?v=20261125-9";
+import { initTimeline } from "./timeline.js?v=20261125-9";
+import { initProfile, showProfileSection } from "./profile.js?v=20261125-9";
 
 const VIEWS = ["overview", "map", "reports", "profile", "experience", "skills"];
 const started = new Set();
